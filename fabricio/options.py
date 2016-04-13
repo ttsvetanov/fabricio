@@ -2,6 +2,8 @@ from collections import OrderedDict
 
 import six
 
+import utils
+
 
 class Options(OrderedDict):
 
@@ -9,7 +11,7 @@ class Options(OrderedDict):
     def make_option(option, value=None):
         option = '--' + option
         if value is not None:
-            # TODO escape value
+            value = utils.shell_escape(value)
             option += ' ' + value
         return option
 

@@ -42,8 +42,16 @@ class OptionsTestCase(unittest2.TestCase):
                 ]),
                 expected_str_version='--foo foo --bar --baz 1 --baz a',
             ),
+            unescaped=dict(
+                options=OrderedDict([
+                    ('foo', 'abc$'),
+                    ('foo_2', '"'),
+                    ('foo_3', '`'),
+                    ('foo_4', '`ab"c$'),
+                ]),
+                expected_str_version='--foo abc\\$ --foo_2 \\" --foo_3 \\` --foo_4 \\`ab\\"c\\$',
+            ),
             # TODO empty value
-            # TODO escaped value
         )
         for case, data in cases.items():
             with self.subTest(case=case):
