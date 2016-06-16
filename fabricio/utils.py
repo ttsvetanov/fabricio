@@ -1,16 +1,20 @@
 import collections
 
+import six
 
-class default_property(object):
+
+class DefaultProperty(object):
 
     def __init__(self, func):
         self.__doc__ = getattr(func, '__doc__')
         self.func = func
 
-    def __get__(self, obj, cls):
+    def __get__(self, obj, cls=None):
         if obj is None:
             return self
         return self.func(obj)
+
+default_property = DefaultProperty
 
 
 class Options(collections.OrderedDict):
@@ -30,7 +34,7 @@ class Options(collections.OrderedDict):
             if isinstance(value, bool):
                 if value is True:
                     yield self.make_option(option)
-            elif isinstance(value, basestring):
+            elif isinstance(value, six.string_types):
                 yield self.make_option(option, value)
             else:
                 for single_value in value:

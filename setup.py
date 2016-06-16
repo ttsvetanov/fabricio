@@ -1,6 +1,13 @@
 from distutils.core import setup
 from setuptools import find_packages
 
+try:
+    import six
+    # TODO check six.__version__
+    additional_requirements = []
+except ImportError:
+    additional_requirements = ['six>=1.4.1']
+
 with open('README.md') as description:
     long_description = description.read()
 
@@ -25,5 +32,5 @@ setup(
     install_requires=[
         'Fabric>=1.1,<2.0',
         'cached-property>=1.3,<2.0',
-    ],
+    ] + additional_requirements,
 )
