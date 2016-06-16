@@ -42,3 +42,11 @@ class Options(collections.OrderedDict):
 
     def __str__(self):
         return ' '.join(self.make_options())
+
+
+class ContainsTrueDefaultDict(collections.defaultdict):
+
+    def __contains__(self, item):
+        if self.default_factory:
+            return True
+        return super(ContainsTrueDefaultDict, self).__contains__(item)
